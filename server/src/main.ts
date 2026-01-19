@@ -2,6 +2,10 @@ import { INestApplication, Logger } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
 import helmet from 'helmet'
 
+import { MongoConnectionService } from 'src/database/mongoConnection.service'
+import { connectionHandler } from 'src/middlewares/connectionHandler.middleware'
+import { LoggerMiddleware } from 'src/middlewares/logger.middleware'
+
 import { AppModule } from './app.module'
 
 const logger: Logger = new Logger('Bootstrap Module')
@@ -20,6 +24,15 @@ async function bootstrap() {
 
         // Helmet Security headers
         app.use(helmet({ contentSecurityPolicy: false }))
+
+        // Connection health guard and request logger
+        app.use(connectionHandler.use)
+        app.use(new LoggerMiddleware().use)
+
+        const mongoConnection: MongoConnectionService = app.get(MongoConnectionService)
+
+        await mongoConnection.connect()
+        connectionHandler.updateServiceStatus(true)
 
         const PORT: number = parseInt(process.env.PORT || '3000', 10)
 
