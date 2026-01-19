@@ -32,6 +32,23 @@ services:
     networks:
       - heatos-network
 
+  client:
+    build:
+      context: .
+      dockerfile: ./client/Dockerfile
+      args:
+        - VITE_API_BASE_URL=http://server:3000/api
+    container_name: heatos_client_prod
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+    ports:
+      - "5173:3000"
+    depends_on:
+      - server
+    networks:
+      - heatos-network
+
 volumes:
   mongodb_data:
     driver: local

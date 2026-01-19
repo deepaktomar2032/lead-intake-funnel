@@ -1,0 +1,5 @@
+FROM node:20-alpine
+RUN corepack enable pnpm
+WORKDIR /usr/src/app
+EXPOSE 5173
+CMD ["pnpm", "--filter=client", "dev"]

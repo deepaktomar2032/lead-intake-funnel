@@ -37,5 +37,31 @@ services:
       - mongo_db
     restart: unless-stopped
 
+  client-dev:
+    container_name: heatos_client_dev
+    build:
+      context: .
+      dockerfile: client/Dockerfile.dev
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+      - /usr/src/app/client/node_modules
+      - /usr/src/app/shared/node_modules
+    ports:
+      - "5173:5173"
+    working_dir: /usr/src/app
+    command:
+      [
+        "sh",
+        "-c",
+        "pnpm install && pnpm --filter=shared build && pnpm --filter=heatos-client dev",
+      ]
+    environment:
+      NODE_ENV: development
+      VITE_API_BASE_URL: http://localhost:3000/api
+    depends_on:
+      - server-dev
+    restart: unless-stopped
+
 volumes:
   mongo_data:
