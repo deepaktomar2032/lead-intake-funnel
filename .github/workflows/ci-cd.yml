@@ -1,0 +1,67 @@
+name: Deployment to Heroku
+run-name: ${{ github.ref_name == 'master' && 'deployment on Heroku' }}
+
+on:
+    push:
+        branches: [master]
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        env:
+            HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+            HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Setup pnpm
+              uses: pnpm/action-setup@v2
+              with:
+                  version: 9
+
+            - name: Setup Node
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 20
+                  cache: pnpm
+
+            - name: Install dependencies
+              run: pnpm install --frozen-lockfile
+
+            - name: Build shared package
+              run: pnpm --filter heatos-shared build
+
+            - name: Typecheck
+              run: pnpm typecheck
+
+            - name: Install Heroku CLI
+              run: curl https://cli-assets.heroku.com/install.sh | sh
+
+            - name: Login to Heroku Container Registry
+              run: heroku container:login
+
+            - name: Set Heroku stack to container
+              if: github.ref == 'refs/heads/master'
+              run: |
+                  heroku stack:set container -a heatos-server-prod
+                  heroku stack:set container -a heatos-client-prod
+
+            - name: Deploy Server (prod)
+              if: github.ref == 'refs/heads/master'
+              run: |
+                  cd server && heroku container:push web -a heatos-server-prod --context-path ..
+                  heroku container:release web -a heatos-server-prod
+
+            - name: Configure Server Environment
+              if: github.ref == 'refs/heads/master'
+              run: |
+                  heroku config:set MONGODB_URI='${{ secrets.MONGODB_URI }}' -a heatos-server-prod
+                  heroku config:set MONGODB_DATABASE_NAME=heatos_sales_dev -a heatos-server-prod
+
+            - name: Deploy Client (prod)
+              if: github.ref == 'refs/heads/master'
+              run: |
+                  cd client && heroku container:push web -a heatos-client-prod --context-path .. --arg VITE_API_BASE_URL=https://heatos-server-prod-8ef0ad8aa001.herokuapp.com/api
+                  heroku container:release web -a heatos-client-prod
