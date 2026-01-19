@@ -1,0 +1,18 @@
+{
+    "name": "heatos-monorepo",
+    "version": "0.1.0",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "start:dev": "pnpm -r --if-present start:dev",
+        "build": "pnpm -r --if-present build",
+        "format": "pnpm -r --if-present format",
+        "typecheck": "pnpm -r --if-present typecheck",
+        "dev": "pnpm -r --if-present dev",
+        "start": "pnpm -r --if-present start",
+        "preview": "pnpm -r --if-present preview",
+        "test": "pnpm -r --if-present test",
+        "lint": "pnpm -r --if-present lint",
+        "clean": "pnpm -r --if-present clean"
+    }
+}
