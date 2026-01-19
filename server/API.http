@@ -1,0 +1,513 @@
+### Variables
+@baseUrl = http://localhost:3000/api
+@contentType = application/json
+
+# 1. Minimal Stage - Contact Information Only
+POST {{baseUrl}}/lead
+Content-Type: {{contentType}}
+
+{
+  "version": "1.2.0",
+  "leadStage": "minimal",
+  "contact": {
+    "contactInformation": {
+      "firstName": "Noah",
+      "lastName": "Schonn",
+      "phone": "+490123454635",
+      "email": "lead@test.de"
+    }
+  }
+}
+
+
+### 2. Qualification Stage - Basic Property + Contact Info
+POST {{baseUrl}}/lead
+Content-Type: {{contentType}}
+
+{
+    "version": "1.2.0",
+    "leadStage": "qualification",
+    "contact": {
+        "contactInformation": {
+            "firstName": "Noah",
+            "lastName": "Schonn",
+            "phone": "+490123454635",
+            "email": "lead@test.de"
+        },
+        "address": {
+            "street": "Pilgrim Street 6",
+            "city": "Cologne",
+            "postalCode": "50676",
+            "countryCode": "DE"
+        }
+    },
+    "building": {
+        "address": {
+            "street": "Pilgrim Street 6",
+            "city": "Cologne",
+            "postalCode": "50676",
+            "countryCode": "DE"
+        },
+        "buildingInformation": {
+            "immoType": "Single-family / Two-family house",
+            "constructionYearString": "before 1995",
+            "heritageProtection": "No",
+            "boilerRoomSize": "more than 4 sqm",
+            "installationLocationCeilingHeight": "180 - 199 cm",
+            "widthPathway": "Yes",
+            "heightPathway": "Yes",
+            "personsHousehold": 4,
+            "livingSpace": 170,
+            "residentialUnits": 1,
+            "roomsBetweenHeatingRoomAndOutdoorUnit": "one_room",
+            "meterClosetLocation": "Basement",
+            "electricityConnectionLocation": "Basement",
+            "groundingType": "water_or_gas_pipe",
+            "hasSolarThermalSystem": true
+        },
+        "ownershipRelationships": {
+            "type": "one_owner",
+            "ownerOccupiedHousing": true
+        },
+        "energyRelevantInformation": {
+            "heatedArea": 185,
+            "typeOfHeating": "Radiator + Floor heating",
+            "locationHeating": "In the basement"
+        }
+    },
+    "heatingSystem": {
+        "systemType": "Natural gas",
+        "consumption": 45000,
+        "consumptionUnit": "Kilowatt hours (kWh)",
+        "constructionYearHeatingSystem": 1995,
+        "floorHeatingConnectedToReturnPipe": false,
+        "floorHeatingOwnHeatingCircuit": true,
+        "floorHeatingOnlyInSmallRooms": false,
+        "numberOfFloorHeatingDistributors": 2,
+        "numberOfRadiators": 10,
+        "domesticHotWaterByHeatpump": true,
+        "domesticHotWaterCirculationPump": "yes_and_active",
+        "domestic_water_station": "yes"
+    },
+    "project": {
+        "timeline": "Immediately",
+        "householdIncome": "more_than_40k_gross",
+        "statusOfFoundationConstruction": "Vamo",
+        "fullReplacementOfHeatingSystemPlanned": true,
+        "additionalDisposal": []
+    }
+}
+
+### 3. Discovery Stage - Technical Details + Household Info
+POST {{baseUrl}}/lead
+Content-Type: {{contentType}}
+
+{
+    "version": "1.2.0",
+    "leadStage": "discovery",
+    "contact": {
+        "contactInformation": {
+            "firstName": "Noah",
+            "lastName": "Schonn",
+            "phone": "+490123454635",
+            "email": "lead@test.de"
+        },
+        "address": {
+            "street": "Pilgrim Street 6",
+            "city": "Cologne",
+            "postalCode": "50676",
+            "countryCode": "DE"
+        }
+    },
+    "building": {
+        "address": {
+            "street": "Pilgrim Street 6",
+            "city": "Cologne",
+            "postalCode": "50676",
+            "countryCode": "DE"
+        },
+        "buildingInformation": {
+            "immoType": "Single-family / Two-family house",
+            "constructionYearString": "before 1995",
+            "heritageProtection": "No",
+            "boilerRoomSize": "more than 4 sqm",
+            "installationLocationCeilingHeight": "180 - 199 cm",
+            "widthPathway": "Yes",
+            "heightPathway": "Yes",
+            "personsHousehold": 4,
+            "livingSpace": 170,
+            "residentialUnits": 1,
+            "roomsBetweenHeatingRoomAndOutdoorUnit": "one_room",
+            "meterClosetLocation": "Basement",
+            "electricityConnectionLocation": "Basement",
+            "groundingType": "water_or_gas_pipe",
+            "hasSolarThermalSystem": true
+        },
+        "ownershipRelationships": {
+            "type": "one_owner",
+            "ownerOccupiedHousing": true
+        },
+        "energyRelevantInformation": {
+            "heatedArea": 185,
+            "typeOfHeating": "Radiator + Floor heating",
+            "locationHeating": "In the basement"
+        }
+    },
+    "heatingSystem": {
+        "systemType": "Natural gas",
+        "consumption": 45000,
+        "consumptionUnit": "Kilowatt hours (kWh)",
+        "constructionYearHeatingSystem": 1995,
+        "floorHeatingConnectedToReturnPipe": false,
+        "floorHeatingOwnHeatingCircuit": true,
+        "floorHeatingOnlyInSmallRooms": false,
+        "numberOfFloorHeatingDistributors": 2,
+        "numberOfRadiators": 10,
+        "domesticHotWaterByHeatpump": true,
+        "domesticHotWaterCirculationPump": "yes_and_active",
+        "domestic_water_station": "yes"
+    },
+    "project": {
+        "timeline": "Immediately",
+        "householdIncome": "more_than_40k_gross",
+        "statusOfFoundationConstruction": "Vamo",
+        "fullReplacementOfHeatingSystemPlanned": true,
+        "additionalDisposal": []
+    }
+}
+
+### 4. Selling Stage - Complete Data + Pictures
+POST {{baseUrl}}/lead
+Content-Type: {{contentType}}
+
+{
+    "version": "1.2.0",
+    "leadStage": "selling",
+    "contact": {
+        "contactInformation": {
+            "firstName": "Noah",
+            "lastName": "Schonn",
+            "phone": "+490123454635",
+            "email": "lead@test.de"
+        },
+        "address": {
+            "street": "Pilgrim Street 6",
+            "city": "Cologne",
+            "postalCode": "50676",
+            "countryCode": "DE"
+        }
+    },
+    "building": {
+        "address": {
+            "street": "Pilgrim Street 6",
+            "city": "Cologne",
+            "postalCode": "50676",
+            "countryCode": "DE"
+        },
+        "buildingInformation": {
+            "immoType": "Single-family / Two-family house",
+            "constructionYearString": "before 1995",
+            "heritageProtection": "No",
+            "boilerRoomSize": "more than 4 sqm",
+            "installationLocationCeilingHeight": "180 - 199 cm",
+            "widthPathway": "Yes",
+            "heightPathway": "Yes",
+            "personsHousehold": 4,
+            "livingSpace": 170,
+            "residentialUnits": 1,
+            "roomsBetweenHeatingRoomAndOutdoorUnit": "one_room",
+            "meterClosetLocation": "Basement",
+            "electricityConnectionLocation": "Basement",
+            "groundingType": "water_or_gas_pipe",
+            "hasSolarThermalSystem": true
+        },
+        "ownershipRelationships": {
+            "type": "one_owner",
+            "ownerOccupiedHousing": true
+        },
+        "energyRelevantInformation": {
+            "heatedArea": 185,
+            "typeOfHeating": "Radiator + Floor heating",
+            "locationHeating": "In the basement"
+        }
+    },
+    "heatingSystem": {
+        "systemType": "Natural gas",
+        "consumption": 45000,
+        "consumptionUnit": "Kilowatt hours (kWh)",
+        "constructionYearHeatingSystem": 1995,
+        "floorHeatingConnectedToReturnPipe": false,
+        "floorHeatingOwnHeatingCircuit": true,
+        "floorHeatingOnlyInSmallRooms": false,
+        "numberOfFloorHeatingDistributors": 2,
+        "numberOfRadiators": 10,
+        "domesticHotWaterByHeatpump": true,
+        "domesticHotWaterCirculationPump": "yes_and_active",
+        "domestic_water_station": "yes"
+    },
+    "project": {
+        "timeline": "Immediately",
+        "householdIncome": "more_than_40k_gross",
+        "statusOfFoundationConstruction": "Vamo",
+        "fullReplacementOfHeatingSystemPlanned": true,
+        "additionalDisposal": [],
+        "pictures": {
+            "outdoorUnitLocation": [
+                {
+                    "url": "https://example.com/outdoor.jpg"
+                }
+            ],
+            "outdoorUnitLocationWithArea": [],
+            "heatingRoom": [],
+            "meterClosetWithDoorOpen": [],
+            "meterClosetSlsSwitchDetailed": [],
+            "floorHeatingDistributionWithDoorOpen": []
+        }
+    }
+}
+
+### 1. Complete Upsert to Qualification Stage
+PUT {{baseUrl}}/lead
+Content-Type: {{contentType}}
+
+{
+    "version": "1.2.0",
+    "leadStage": "qualification",
+    "contact": {
+        "contactInformation": {
+            "firstName": "Noah",
+            "lastName": "Schonn",
+            "phone": "+490123454635",
+            "email": "lead@test.de"
+        },
+        "address": {
+            "street": "Pilgrim Street 6",
+            "city": "Cologne",
+            "postalCode": "50676",
+            "countryCode": "DE"
+        }
+    },
+    "building": {
+        "address": {
+            "street": "Pilgrim Street 6",
+            "city": "Cologne",
+            "postalCode": "50676",
+            "countryCode": "DE"
+        },
+        "buildingInformation": {
+            "immoType": "Single-family / Two-family house",
+            "constructionYearString": "before 1995",
+            "heritageProtection": "No",
+            "boilerRoomSize": "more than 4 sqm",
+            "installationLocationCeilingHeight": "180 - 199 cm",
+            "widthPathway": "Yes",
+            "heightPathway": "Yes",
+            "personsHousehold": 4,
+            "livingSpace": 170,
+            "residentialUnits": 1,
+            "roomsBetweenHeatingRoomAndOutdoorUnit": "one_room",
+            "meterClosetLocation": "Basement",
+            "electricityConnectionLocation": "Basement",
+            "groundingType": "water_or_gas_pipe",
+            "hasSolarThermalSystem": true
+        },
+        "ownershipRelationships": {
+            "type": "one_owner",
+            "ownerOccupiedHousing": true
+        },
+        "energyRelevantInformation": {
+            "heatedArea": 185,
+            "typeOfHeating": "Radiator + Floor heating",
+            "locationHeating": "In the basement"
+        }
+    },
+    "heatingSystem": {
+        "systemType": "Natural gas",
+        "consumption": 45000,
+        "consumptionUnit": "Kilowatt hours (kWh)",
+        "constructionYearHeatingSystem": 1995,
+        "floorHeatingConnectedToReturnPipe": false,
+        "floorHeatingOwnHeatingCircuit": true,
+        "floorHeatingOnlyInSmallRooms": false,
+        "numberOfFloorHeatingDistributors": 2,
+        "numberOfRadiators": 10,
+        "domesticHotWaterByHeatpump": true,
+        "domesticHotWaterCirculationPump": "yes_and_active",
+        "domestic_water_station": "yes"
+    },
+    "project": {
+        "timeline": "Immediately",
+        "householdIncome": "more_than_40k_gross",
+        "statusOfFoundationConstruction": "Vamo",
+        "fullReplacementOfHeatingSystemPlanned": true,
+        "additionalDisposal": []
+    }
+}
+
+### 2. Complete Upsert to Discovery Stage
+PUT {{baseUrl}}/lead
+Content-Type: {{contentType}}
+
+{
+    "version": "1.2.0",
+    "leadStage": "discovery",
+    "contact": {
+        "contactInformation": {
+            "firstName": "Noah",
+            "lastName": "Schonn",
+            "phone": "+490123454635",
+            "email": "lead@test.de"
+        },
+        "address": {
+            "street": "Pilgrim Street 6",
+            "city": "Cologne",
+            "postalCode": "50676",
+            "countryCode": "DE"
+        }
+    },
+    "building": {
+        "address": {
+            "street": "Pilgrim Street 6",
+            "city": "Cologne",
+            "postalCode": "50676",
+            "countryCode": "DE"
+        },
+        "buildingInformation": {
+            "immoType": "Single-family / Two-family house",
+            "constructionYearString": "before 1995",
+            "heritageProtection": "No",
+            "boilerRoomSize": "more than 4 sqm",
+            "installationLocationCeilingHeight": "180 - 199 cm",
+            "widthPathway": "Yes",
+            "heightPathway": "Yes",
+            "personsHousehold": 4,
+            "livingSpace": 170,
+            "residentialUnits": 1,
+            "roomsBetweenHeatingRoomAndOutdoorUnit": "one_room",
+            "meterClosetLocation": "Basement",
+            "electricityConnectionLocation": "Basement",
+            "groundingType": "water_or_gas_pipe",
+            "hasSolarThermalSystem": true
+        },
+        "ownershipRelationships": {
+            "type": "one_owner",
+            "ownerOccupiedHousing": true
+        },
+        "energyRelevantInformation": {
+            "heatedArea": 185,
+            "typeOfHeating": "Radiator + Floor heating",
+            "locationHeating": "In the basement"
+        }
+    },
+    "heatingSystem": {
+        "systemType": "Natural gas",
+        "consumption": 45000,
+        "consumptionUnit": "Kilowatt hours (kWh)",
+        "constructionYearHeatingSystem": 1995,
+        "floorHeatingConnectedToReturnPipe": false,
+        "floorHeatingOwnHeatingCircuit": true,
+        "floorHeatingOnlyInSmallRooms": false,
+        "numberOfFloorHeatingDistributors": 2,
+        "numberOfRadiators": 10,
+        "domesticHotWaterByHeatpump": true,
+        "domesticHotWaterCirculationPump": "yes_and_active",
+        "domestic_water_station": "yes"
+    },
+    "project": {
+        "timeline": "Immediately",
+        "householdIncome": "more_than_40k_gross",
+        "statusOfFoundationConstruction": "Vamo",
+        "fullReplacementOfHeatingSystemPlanned": true,
+        "additionalDisposal": []
+    }
+}
+
+### 3. Complete Upsert to Selling Stage
+PUT {{baseUrl}}/lead
+Content-Type: {{contentType}}
+
+{
+    "version": "1.2.0",
+    "leadStage": "selling",
+    "contact": {
+        "contactInformation": {
+            "firstName": "Noah",
+            "lastName": "Schonn",
+            "phone": "+490123454635",
+            "email": "lead@test.de"
+        },
+        "address": {
+            "street": "Pilgrim Street 6",
+            "city": "Cologne",
+            "postalCode": "50676",
+            "countryCode": "DE"
+        }
+    },
+    "building": {
+        "address": {
+            "street": "Pilgrim Street 6",
+            "city": "Cologne",
+            "postalCode": "50676",
+            "countryCode": "DE"
+        },
+        "buildingInformation": {
+            "immoType": "Single-family / Two-family house",
+            "constructionYearString": "before 1995",
+            "heritageProtection": "No",
+            "boilerRoomSize": "more than 4 sqm",
+            "installationLocationCeilingHeight": "180 - 199 cm",
+            "widthPathway": "Yes",
+            "heightPathway": "Yes",
+            "personsHousehold": 4,
+            "livingSpace": 170,
+            "residentialUnits": 1,
+            "roomsBetweenHeatingRoomAndOutdoorUnit": "one_room",
+            "meterClosetLocation": "Basement",
+            "electricityConnectionLocation": "Basement",
+            "groundingType": "water_or_gas_pipe",
+            "hasSolarThermalSystem": true
+        },
+        "ownershipRelationships": {
+            "type": "one_owner",
+            "ownerOccupiedHousing": true
+        },
+        "energyRelevantInformation": {
+            "heatedArea": 185,
+            "typeOfHeating": "Radiator + Floor heating",
+            "locationHeating": "In the basement"
+        }
+    },
+    "heatingSystem": {
+        "systemType": "Natural gas",
+        "consumption": 45000,
+        "consumptionUnit": "Kilowatt hours (kWh)",
+        "constructionYearHeatingSystem": 1995,
+        "floorHeatingConnectedToReturnPipe": false,
+        "floorHeatingOwnHeatingCircuit": true,
+        "floorHeatingOnlyInSmallRooms": false,
+        "numberOfFloorHeatingDistributors": 2,
+        "numberOfRadiators": 10,
+        "domesticHotWaterByHeatpump": true,
+        "domesticHotWaterCirculationPump": "yes_and_active",
+        "domestic_water_station": "yes"
+    },
+    "project": {
+        "timeline": "Immediately",
+        "householdIncome": "more_than_40k_gross",
+        "statusOfFoundationConstruction": "Vamo",
+        "fullReplacementOfHeatingSystemPlanned": true,
+        "additionalDisposal": [],
+        "pictures": {
+            "outdoorUnitLocation": [
+                {
+                    "url": "https://example.com/outdoor.jpg"
+                }
+            ],
+            "outdoorUnitLocationWithArea": [],
+            "heatingRoom": [],
+            "meterClosetWithDoorOpen": [],
+            "meterClosetSlsSwitchDetailed": [],
+            "floorHeatingDistributionWithDoorOpen": []
+        }
+    }
+}
