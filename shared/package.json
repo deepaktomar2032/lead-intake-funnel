@@ -1,0 +1,30 @@
+{
+    "name": "heatos-shared",
+    "version": "1.0.0",
+    "main": "dist/cjs/index.js",
+    "module": "dist/esm/index.js",
+    "types": "dist/cjs/index.d.ts",
+    "exports": {
+        ".": {
+            "import": "./dist/esm/index.js",
+            "require": "./dist/cjs/index.js",
+            "types": "./dist/cjs/index.d.ts"
+        }
+    },
+    "scripts": {
+        "format": "prettier --write 'src/**/*.ts'",
+        "build": "rm -rf dist && tsc -p tsconfig.cjs.json && tsc -p tsconfig.esm.json",
+        "dev": "tsc -p tsconfig.cjs.json --watch",
+        "typecheck": "tsc --noEmit",
+        "docker:dev": "docker compose -f ../docker-compose.dev.yml up shared --build",
+        "clean": "rm -rf dist"
+    },
+    "dependencies": {
+        "zod": "catalog:"
+    },
+    "devDependencies": {
+        "typescript": "catalog:",
+        "prettier": "catalog:",
+        "@trivago/prettier-plugin-sort-imports": "catalog:"
+    }
+}
