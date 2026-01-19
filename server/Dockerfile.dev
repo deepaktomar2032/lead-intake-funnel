@@ -1,0 +1,6 @@
+FROM node:20-alpine
+RUN corepack enable pnpm
+WORKDIR /usr/src/app
+EXPOSE 3000
+CMD ["pnpm", "--filter=heatos-server", "start:dev"]
+CMD ["pnpm", "start:dev"]

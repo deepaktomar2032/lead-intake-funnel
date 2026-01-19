@@ -1,0 +1,41 @@
+services:
+  mongo_db:
+    image: mongo:7
+    container_name: heatos_mongo_dev
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  server-dev:
+    container_name: heatos_server_dev
+    build:
+      context: .
+      dockerfile: server/Dockerfile.dev
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+      - /usr/src/app/server/node_modules
+      - /usr/src/app/shared/node_modules
+    ports:
+      - "3000:3000"
+    working_dir: /usr/src/app
+    command:
+      [
+        "sh",
+        "-c",
+        "pnpm install && pnpm --filter=shared build && pnpm --filter=heatos-server start:dev",
+      ]
+    environment:
+      NODE_ENV: development
+      PORT: 3000
+      MONGODB_URI: mongodb://mongo_db:27017/heatos_sales_dev
+      MONGODB_DATABASE_NAME: heatos_sales_dev
+      MONGODB_CONNECT_TIMEOUTMS: 5000
+    depends_on:
+      - mongo_db
+    restart: unless-stopped
+
+volumes:
+  mongo_data:

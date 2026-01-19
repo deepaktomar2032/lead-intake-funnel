@@ -13,6 +13,17 @@
         "preview": "pnpm -r --if-present preview",
         "test": "pnpm -r --if-present test",
         "lint": "pnpm -r --if-present lint",
-        "clean": "pnpm -r --if-present clean"
+        "clean": "pnpm -r --if-present clean",
+        "server:dev": "pnpm --filter heatos-server dev",
+        "client:dev": "pnpm --filter heatos-client dev",
+        "shared:build": "pnpm --filter heatos-shared build",
+        "docker:build": "docker build -t heatos-app .",
+        "docker:run": "docker run -p 3000:3000 -p 5173:5173 heatos-app",
+        "docker:up": "docker compose up --build",
+        "docker:down": "docker compose down",
+        "docker:dev": "docker compose -f docker-compose.dev.yml up --build",
+        "docker:dev:down": "docker compose -f docker-compose.dev.yml down",
+        "docker:dev:logs": "docker compose -f docker-compose.dev.yml logs -f",
+        "docker:prod": "docker compose -f docker-compose.yml up --build"
     }
 }

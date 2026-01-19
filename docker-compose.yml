@@ -1,0 +1,41 @@
+services:
+  mongodb:
+    image: mongo:7
+    container_name: heatos_mongo_prod
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin123
+      MONGO_INITDB_DATABASE: heatos
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - heatos-network
+
+  server:
+    build:
+      context: .
+      dockerfile: ./server/Dockerfile
+    container_name: heatos_server_prod
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - MONGODB_URI=mongodb://admin:admin123@mongodb:27017/heatos?authSource=admin
+      - MONGODB_DATABASE_NAME=heatos_sales_dev
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongodb
+    networks:
+      - heatos-network
+
+volumes:
+  mongodb_data:
+    driver: local
+
+networks:
+  heatos-network:
+    driver: bridge
